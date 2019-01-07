@@ -1,174 +1,404 @@
-<!-- Navbar -->
-<?php
-	$brandlogo = $pageData->label->system_title->sys->icon;
-	$menu=$pageData->data->component->frontend_menu;	
-	$lang_menu = isset($pageData->data->component->language_switch)?('<h4 class="font-weight-sbold">'.$pageData->label->label->lang->title.'</h4>
-					<div class="mt-10">'.$pageData->data->component->language_switch.'</div>'):'';	
-	$contact = isset($pageData->data->component->footer->footer_contact)?('<h4 class="font-weight-sbold">'.$pageData->label->label->contact->title.'</h4><div class="blackcolor">'.$pageData->data->component->footer->footer_contact.'</div>'):'';	
-?>
 
-
-<header class="section page-header <?=isset($pageData->data->component->slider)?'':'page-header-1 context-dark'?>">
-		
-        <?php
-			if(!isset($pageData->data->component->slider)){
-				$filenames=array();$item_video=$item_gallery=$feature_img=$feature_des='';				
-				if(isset($pageData->data->content->item)){
-					$web_config=web_config(array('resized_pic_path','thumbnail_path'));
-					$pic_path = $web_config['resized_pic_path'];$thumbnail_path = $web_config['thumbnail_path'];
-					$item=$pageData->data->content->item;
-					//$map = explode(',',$item['map']); $map=count($map)?$map:array(0,0,0);
-					$filenames = $item['filenames']<>''?json_decode($item['filenames']):array();
-					$feature_img = count($filenames)?$pic_path.$filenames[rand(0,(count($filenames)-1))]->filename:'';
-					$feature_des = strip_tags($item['description']);
-					$feature_des = (mb_strlen($feature_des,"utf-8")>100)?(mb_substr($feature_des,0,100,"utf-8").'...'):$feature_des;
-				}
-				foreach($filenames as $key=>$value){
-					$item_gallery.='<a href="'.$pic_path.$value->filename.'" data-lightgallery="item">
-										<img src="'.$pic_path.$value->filename.'" alt="" width="225" height="300"/>
-									</a>';
-				}
-				
-				$pic = (isset($feature_img) and $feature_img<>'')?$feature_img:'https://www.songsaa.com/uploads/images/default.jpg';
-				echo '<div class="page-header-1-figure m-parallax">
-					  <div class="page-header-1-image m-parallax-image" style="background-image: url('.$pic.');"></div>
-					</div>';
-			}		
-		?>
 		
 
-        <!-- RD Navbar-->
-        <div class="rd-navbar-wrap">
-          <nav class="rd-navbar rd-navbar-classic" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-lg-stick-up-offset="1px" data-xl-stick-up-offset="1px" data-xxl-stick-up-offset="1px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-            <div class="rd-navbar-main-outer">
-              <div class="rd-navbar-main">
-                <!-- RD Navbar Panel-->
-                <div class="rd-navbar-panel">
-                  <!-- RD Navbar Toggle-->
-                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                  <!-- RD Navbar Brand-->
-                  <div class="rd-navbar-brand"><a class="brand" href="/"><img class="brand-logo-dark" src="<?=$brandlogo?>" height="10" srcset="<?=$brandlogo?> 2x"/><img class="brand-logo-light" src="<?=$brandlogo?>" alt="" width="146" height="30" srcset="<?=$brandlogo?> 2x"/></a>
-                  </div>
-                </div>
-                <div class="rd-navbar-nav-wrap">
-                  <!-- RD Navbar Nav-->
-                  <ul class="rd-navbar-nav">
-                    <?=$menu?>
-                  </ul>
-                </div>
-                <div class="rd-navbar-collapse-outer context-light">
-                  <button class="rd-navbar-collapse-toggle" data-multitoggle="#rd-navbar-collapse, #toggle-inner"><span class="rd-navbar-collapse-toggle-element" id="toggle-inner"><span></span></span><span class="rd-navbar-collapse-toggle-text khmerNormal"><?=$pageData->lang->selected=='kh'?'Account<br/>Language':'គណនី<br >ជ្រើសភាសា'?></span></button>
-                  <div class="rd-navbar-collapse" id="rd-navbar-collapse">
-                    <button class="rd-navbar-collapse-close" data-multitoggle="#rd-navbar-collapse"><span class="rd-navbar-collapse-toggle-element active"><span></span></span></button>
-                    
-                    <div class="group group-sm group-middle ">
-                    <?php if($usersession->isLogin()){ ?>
-						<a href="/<?=$pageData->lang->selected.$usersession->info()->homepage?>" class="button button-sm button-icon button-icon-left btn-info button-gallery " data-lightgallery="group"><?=$pageData->label->label->dashboard->icon?> </span><?=$pageData->label->label->dashboard->title?></a>
-                      	<a href="/<?=$pageData->lang->selected.$pageData->label->label->logout->url?>" class="button button-sm button-icon button-icon-left btn-info button-gallery " data-lightgallery="group"><?=$pageData->label->label->logout->icon?> </span><?=$pageData->label->label->logout->title?></a>
-					<?php }else{ ?>
-                      	<a href="/<?=$pageData->lang->selected.$pageData->label->label->register->url?>" class="button button-sm button-icon button-icon-left btn-info button-gallery " data-lightgallery="group"><?=$pageData->label->label->register->icon?> </span><?=$pageData->label->label->register->title?></a>
-                      	<a href="/<?=$pageData->lang->selected.$pageData->label->label->login->url?>" class="button button-sm button-icon button-icon-left btn-info button-gallery " data-lightgallery="group"><?=$pageData->label->label->login->icon?> </span><?=$pageData->label->label->login->title?></a>
-                    <?php } ?>
-                    </div>
-					
-					<?=$lang_menu?>                    
-                    <?=$contact?>
-                    <!-- Owl Carousel-->
-                    <div class="owl-carousel owl-carousel-tour-minimal" data-items="1" data-dots="true" data-nav="false" data-auto-width="true" data-loop="true" data-margin="0" data-autoplay="true" data-mouse-drag="false">
-                      <div class="owl-item-inner">
-                        <article class="tour-minimal context-dark">
-                          <div class="tour-minimal-inner" style="background-image: url(https://livedemo00.template-help.com/wt_prod-19282/images/tour-1-258x273.jpg);">
-                            <div class="tour-minimal-header">
-                            </div>
-                            <div class="tour-minimal-main">
-                              <h4 class="tour-minimal-title"><a href="single-tour.html">Adventures in Maldives</a></h4>
-                              <div class="tour-minimal-pricing">
-                                <p class="tour-minimal-price tour-minimal-price-new">$756</p>
-                              </div>
-                              <p class="tour-minimal-comment">Price per person</p>
-                            </div>
-                            <div class="tour-minimal-caption">
-                              <p>Explore unrivaled luxury of Maldives.</p>
-                            </div>
-                          </div>
-                        </article>
-                      </div>
-                      <div class="owl-item-inner">
-                        <article class="tour-minimal context-dark">
-                          <div class="tour-minimal-inner" style="background-image: url(https://livedemo00.template-help.com/wt_prod-19282/images/tour-2-258x273.jpg);">
-                            <div class="tour-minimal-header">
-                              <div class="tour-minimal-badge">-20%</div>
-                            </div>
-                            <div class="tour-minimal-main">
-                              <h4 class="tour-minimal-title"><a href="single-tour.html">Discover Costa Rica</a></h4>
-                              <div class="tour-minimal-pricing">
-                                <p class="tour-minimal-price tour-minimal-price-old">$1000</p>
-                                <p class="tour-minimal-price tour-minimal-price-new">$756</p>
-                              </div>
-                              <p class="tour-minimal-comment">Price per person</p>
-                            </div>
-                            <div class="tour-minimal-caption">
-                              <p>Experience your best vacation on Costa Rica.</p>
-                            </div>
-                          </div>
-                        </article>
-                      </div>
-                      <div class="owl-item-inner">
-                        <article class="tour-minimal context-dark">
-                          <div class="tour-minimal-inner" style="background-image: url(https://livedemo00.template-help.com/wt_prod-19282/images/tour-3-258x273.jpg);">
-                            <div class="tour-minimal-header">
-                            </div>
-                            <div class="tour-minimal-main">
-                              <h4 class="tour-minimal-title"><a href="single-tour.html">Peyto Lake Tour</a></h4>
-                              <div class="tour-minimal-pricing">
-                                <p class="tour-minimal-price tour-minimal-price-new">$856</p>
-                              </div>
-                              <p class="tour-minimal-comment">Price per person</p>
-                            </div>
-                            <div class="tour-minimal-caption">
-                              <p>A perfect choice for an autumn family trip.</p>
-                            </div>
-                          </div>
-                        </article>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="rd-navbar-placeholder"></div>
-          </nav>
-        </div>
-        
-        <?php
-			if(!isset($pageData->data->component->slider)){
-				
-				echo '<section class="breadcrumbs-custom">
-					  <div class="breadcrumbs-custom-inner" style="padding: 35px 0 40px;">
-						<div class="container">
-						  <div class="breadcrumbs-custom-main m-parallax-content">
-							<svg class="breadcrumbs-custom-line" width="70" height="8" viewBox="0 0 70 8" fill="none">
-							  <path d="M0 1C5 1 5 7 9.92 7C14.84 7 14.92 1 19.85 1C24.78 1 24.85 7 29.77 7C34.69 7 34.77 1 39.71 1C44.65 1 44.71 7 49.63 7C54.55 7 54.63 1 59.57 1C64.51 1 64.57 7 69.5 7" stroke-width="1.98" stroke-miterlimit="10"></path>
-							</svg>
-							<h2 class="breadcrumbs-custom-title">'.$pagetitle.'</h2>
-							<div class="group group-sm group-middle '.(($item_video=='' and $item_gallery=='')?'d-none':'').'">
-								<a class="button button-sm button-icon button-icon-left button-light '.($item_video==''?'d-none':'').'" data-lightgallery="item" href="https://www.youtube.com/watch?v=I5FlP07kdvM"><span class="icon mdi mdi-play"></span>Video Preview</a>
-							  <div class="button button-sm button-icon button-icon-left button-light button-gallery '.($item_gallery==''?'d-none':'').'" data-lightgallery="group"><span class="icon mdi mdi-image-filter"></span>'.$pageData->label->label->gallery->title.'
-								<div class="button-gallery-inner">
-									'.$item_gallery.'
-								</div>
-							  </div>
-							</div>
-							
-							
-							
-						  </div>
-						</div>
-					  </div>
-					</section>';
-			}		
-		?>
-        
-        
+<!--Header -->
 
-      </header>
+<header>
+
+  <div class="container">
+
+
+
+	<!-- Sidebar toggler -->
+
+	<a class="nav-link nav-icon ml-ni nav-toggler mr-3 d-flex d-lg-none" href="#" data-toggle="modal" data-target="#menuModal"><i data-feather="menu"></i></a>
+
+
+
+	<!-- Logo -->
+
+	<a class="nav-link nav-logo" href="index.html"><img src="/assets/frontend/template/img/logo.svg" alt="Mimity"> <strong>Mimity</strong></a>
+
+
+
+	<!-- Main navigation -->
+
+	<ul class="nav nav-main ml-auto d-none d-lg-flex"> <!-- hidden on md -->
+
+	  <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+
+	  <li class="nav-item dropdown dropdown-hover">
+
+		<a class="nav-link dropdown-toggle forwardable" data-toggle="dropdown" href="shop-categories.html" role="button" aria-haspopup="true" aria-expanded="false">
+
+		  Shop <i data-feather="chevron-down"></i>
+
+		</a>
+
+		<div class="dropdown-menu">
+
+		  <a class="dropdown-item" href="shop-categories.html">Shop Categories</a>
+
+		  <a class="dropdown-item" href="shop-grid.html">Shop Grid</a>
+
+		  <a class="dropdown-item" href="shop-list.html">Shop List</a>
+
+		  <a class="dropdown-item" href="shop-single.html">Single Product</a>
+
+		  <a class="dropdown-item" href="shop-single2.html">Single Product v2</a>
+
+		  <a class="dropdown-item" href="cart.html">Cart</a>
+
+		  <a class="dropdown-item" href="shipping.html">Checkout</a>
+
+		</div>
+
+	  </li>
+
+	  <li class="nav-item dropdown dropdown-hover dropdown-mega">
+
+		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+
+		  Mega Menu <i data-feather="chevron-down"></i>
+
+		</a>
+
+		<div class="dropdown-menu">
+
+		  <div class="row">
+
+			<div class="col-lg-3">
+
+			  <div class="list-group list-group-flush list-group-no-border list-group-sm">
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action"><strong>CLOTHING</strong></a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Polos &amp; Tees</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Casual Shirts</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Jeans</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Casual Trousers</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Formal Shirts</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Formal Trousers</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Suits &amp; Blazers</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Shorts &amp; 3/4ths</a>
+
+			  </div>
+
+			</div>
+
+			<div class="col-lg-3 border-left">
+
+			  <div class="list-group list-group-flush list-group-no-border list-group-sm">
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action"><strong>FOOTWEAR</strong></a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Sports Shoes</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Sneakers</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Casual Shoes</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Loafers</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Formal Shoes</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Boots</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Outdoor &amp; Hiking</a>
+
+				<a href="shop-grid.html" class="list-group-item list-group-item-action">Floaters</a>
+
+			  </div>
+
+			</div>
+
+			<div class="col-lg-3 border-left roboto-condensed">
+
+			  <div class="card text-white zoom-hover">
+
+				<div data-cover="/assets/frontend/template/img/categories/1.jpeg" data-height="260px"></div>
+
+				<div class="card-img-overlay card-img-overlay-transparent d-flex justify-content-center align-items-center flex-column">
+
+				  <h2 class="card-title text-center">New Men's Fashion</h2>
+
+				  <h5>See what's new</h5>
+
+				  <a href="shop-grid.html" class="btn btn-primary rounded-pill">Shop Now</a>
+
+				</div>
+
+			  </div>
+
+			</div>
+
+			<div class="col-lg-3 border-left roboto-condensed">
+
+			  <div class="card text-white zoom-hover">
+
+				<div data-cover="/assets/frontend/template/img/categories/6.jpeg" data-height="260px"></div>
+
+				<div class="card-img-overlay card-img-overlay-transparent d-flex justify-content-center align-items-center flex-column">
+
+				  <h2 class="card-title text-center">New Women's Fashion</h2>
+
+				  <h5>See what's new</h5>
+
+				  <a href="shop-grid.html" class="btn btn-danger rounded-pill">Shop Now</a>
+
+				</div>
+
+			  </div>
+
+			</div>
+
+		  </div>
+
+		</div>
+
+	  </li>
+
+	  <li class="nav-item dropdown dropdown-hover">
+
+		<a class="nav-link dropdown-toggle forwardable" data-toggle="dropdown" href="account-profile.html" role="button" aria-haspopup="true" aria-expanded="false">
+
+		  Account <i data-feather="chevron-down"></i>
+
+		</a>
+
+		<div class="dropdown-menu">
+
+		  <a class="dropdown-item" href="account-login.html">Login / Register</a>
+
+		  <a class="dropdown-item" href="account-profile.html">Profile Page</a>
+
+		  <a class="dropdown-item" href="account-orders.html">Orders List</a>
+
+		  <a class="dropdown-item" href="account-wishlist.html">Wishlist</a>
+
+		  <a class="dropdown-item" href="account-address.html">Address</a>
+
+		</div>
+
+	  </li>
+
+	  <li class="nav-item dropdown dropdown-hover">
+
+		<a class="nav-link dropdown-toggle forwardable" data-toggle="dropdown" href="blog-grid.html" role="button" aria-haspopup="true" aria-expanded="false">
+
+		  Blog <i data-feather="chevron-down"></i>
+
+		</a>
+
+		<div class="dropdown-menu">
+
+		  <a class="dropdown-item" href="blog-grid.html">Post Grid</a>
+
+		  <a class="dropdown-item" href="blog-list.html">Post List</a>
+
+		  <a class="dropdown-item" href="blog-single.html">Single Post</a>
+
+		</div>
+
+	  </li>
+
+	  <li class="nav-item dropdown dropdown-hover">
+
+		<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+
+		  Pages <i data-feather="chevron-down"></i>
+
+		</a>
+
+		<div class="dropdown-menu">
+
+		  <a class="dropdown-item" href="about.html">About Us</a>
+
+		  <a class="dropdown-item" href="contact.html">Contact Us</a>
+
+		  <a class="dropdown-item" href="compare.html">Compare</a>
+
+		  <a class="dropdown-item" href="faq.html">Help / FAQ</a>
+
+		  <a class="dropdown-item" href="404.html">404 Not Found</a>
+
+		</div>
+
+	  </li>
+
+	</ul>
+
+	<!-- /Main navigation -->
+
+
+
+	<!-- Search form -->
+
+	<form class="form-inline form-search ml-auto mr-0 mr-sm-1 d-none d-sm-flex">
+
+	  <div class="input-group input-group-search">
+
+		<div class="input-group-prepend">
+
+		  <button class="btn btn-light d-flex d-sm-none search-toggle" type="button"><i data-feather="chevron-left"></i></button>
+
+		</div>
+
+		<input type="text" class="form-control border-0 bg-light input-search" placeholder="Search...">
+
+		<div class="input-group-append">
+
+		  <button class="btn btn-light" type="submit"><i data-feather="search"></i></button>
+
+		</div>
+
+	  </div>
+
+	</form>
+
+	<!-- /Search form -->
+
+
+
+	<ul class="nav ml-auto ml-sm-0">
+
+	  <!-- Search form toggler -->
+
+	  <li class="nav-item d-block d-sm-none ml-2 ml-lg-0"><a class="nav-link nav-icon search-toggle" href="#"><i data-feather="search"></i></a></li>
+
+
+
+	  <!-- Cart dropdown -->
+
+	  <li class="nav-item dropdown dropdown-hover dropdown-cart">
+
+		<a class="nav-link nav-icon mr-nis dropdown-toggle forwardable ml-2" data-toggle="dropdown" href="cart.html" role="button" aria-haspopup="true" aria-expanded="false">
+
+		  <i data-feather="shopping-cart"></i>
+
+		  <span class="badge badge-primary">4</span>
+
+		</a>
+
+		<div class="dropdown-menu dropdown-menu-right">
+
+
+
+		  <div class="media">
+
+			<a href="shop-single.html"><img src="/assets/frontend/template/img/products/1_small.jpg" width="50" height="50" alt="Hanes Hooded Sweatshirt"></a>
+
+			<div class="media-body">
+
+			  <a href="shop-single.html" title="Hanes Hooded Sweatshirt">Hanes Hooded Sweatshirt</a>
+
+			  <span class="qty">1</span> x <span class="price">$18.56</span>
+
+			  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+
+			</div>
+
+		  </div>
+
+
+
+		  <div class="media">
+
+			<a href="shop-single.html"><img src="/assets/frontend/template/img/products/2_small.jpg" width="50" height="50" alt="The Flash Logo T-Shirt"></a>
+
+			<div class="media-body">
+
+			  <a href="shop-single.html" title="The Flash Logo T-Shirt">The Flash Logo T-Shirt</a>
+
+			  <span class="qty">1</span> x <span class="price">$16.64</span>
+
+			  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+
+			</div>
+
+		  </div>
+
+
+
+		  <div class="media">
+
+			<a href="shop-single.html"><img src="/assets/frontend/template/img/products/3_small.jpg" width="50" height="50" alt="Open Front Cropped Cardigans"></a>
+
+			<div class="media-body">
+
+			  <a href="shop-single.html" title="Open Front Cropped Cardigans">Open Front Cropped Cardigans</a>
+
+			  <span class="qty">1</span> x <span class="price">$15.20</span>
+
+			  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+
+			</div>
+
+		  </div>
+
+
+
+		  <div class="media">
+
+			<a href="shop-single.html"><img src="/assets/frontend/template/img/products/4_small.jpg" width="50" height="50" alt="Cotton Fleece Long Hoodie"></a>
+
+			<div class="media-body">
+
+			  <a href="shop-single.html" title="Cotton Fleece Long Hoodie">Cotton Fleece Long Hoodie</a>
+
+			  <span class="qty">1</span> x <span class="price">$85.00</span>
+
+			  <button type="button" class="close" aria-label="Close"><i data-feather="x-circle"></i></button>
+
+			</div>
+
+		  </div>
+
+
+
+		  <div class="d-flex justify-content-between pb-3 pt-2">
+
+			<span>Total</span>
+
+			<strong>$135.40</strong>
+
+		  </div>
+
+		  <div class="d-flex justify-content-between pb-2">
+
+			<div class="w-100 mr-1">
+
+			  <a href="cart.html" class="btn btn-block rounded-pill btn-secondary">View Cart</a>
+
+			</div>
+
+			<div class="w-100 ml-1">
+
+			  <a href="shipping.html" class="btn btn-block rounded-pill btn-primary">Checkout</a>
+
+			</div>
+
+		  </div>
+
+		</div>
+
+	  </li>
+
+	  <!-- /Cart dropdown -->
+
+	</ul>
+
+
+
+  </div><!-- /.container -->
+
+</header>
+
+<!-- /Header -->

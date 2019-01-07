@@ -178,7 +178,7 @@ foreach($pageData->data->content->places as $k=>$v){
         </div>
       </section>
 <?php
-$late_script_file='<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk68AIicPkiiERUM-IOGRAh08dYznWz2s&callback=initMap"></script>';
+//$late_script_file='<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCk68AIicPkiiERUM-IOGRAh08dYznWz2s&callback=initMap"></script>';
 
 echo '<script> 
 				var map,markersArray = [],default_location=['.$pageData->data->content->item['map'].'];

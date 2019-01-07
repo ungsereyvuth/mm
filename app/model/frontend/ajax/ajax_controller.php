@@ -1,7 +1,7 @@
 <?php
 class ajax_request{
 	public function data($input){
-		global $encryptKey,$language,$usersession,$layout,$layout_label,$lang;
+		global $encryptKey,$language,$usersession,$layout,$layout_label,$lang,$docroot;
 		$qry = new connectDb;
 		if(isset($_POST['cmd'])){
 			$_POST=trim_arr($_POST);
@@ -13,7 +13,7 @@ class ajax_request{
 				// if inherit set, use inherited class
 				$ajax_command=$isGranted->inherited<>''?$isGranted->inherited:$_POST['cmd'];
 				//call ajax class
-				if (file_exists($_SERVER['DOCUMENT_ROOT']."/app/model/".$input['dir']."ajax/".$ajax_command.".php")) { 
+				if (file_exists($docroot."/app/model/".$input['dir']."ajax/".$ajax_command.".php")) { 
 					include_once("app/model/".$input['dir']."ajax/".$ajax_command.".php");
 				}
 				//check ajax class

@@ -14,11 +14,12 @@ include_once("app/model/lib/checksession.php");
 //app variables
 $usersession = new usersession($language); //isLoign(),info()
 include_once("app/model/lib/phpExcel/standardReport.php");
-//include_once("app/model/upload.php");
+
+$docroot = str_replace('/public','',$_SERVER['DOCUMENT_ROOT']);
 
 class application{
 	public function run(){	
-		global $usersession,$layout_cate,$encryptKey,$language,$language_code;
+		global $usersession,$layout_cate,$encryptKey,$language,$language_code,$docroot;
 
 		$url_text = isset($_GET['url'])?$_GET['url']:'';
 		$url_parameters = explode("/",$url_text);
@@ -36,7 +37,7 @@ class application{
 		$dir = $pageData->dir; $more_dir = $pageData->more_dir; 
 		$fileview = 'app/view/'.$dir.'content/'.$more_dir.$pageData->fileview.'.php';		
 
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].'/'.$fileview)) { 
+		if (file_exists($docroot.'/'.$fileview)) { 
 			if($pageData->layoutRequired){include 'app/view/'.$dir.'stdPage.php';
 			}else{include $fileview;}
 		}
@@ -45,7 +46,7 @@ class application{
 
 class pageController{
 	public function data($param){ 
-		global $usersession,$layout_label,$lang,$encryptKey;
+		global $usersession,$layout_label,$lang,$encryptKey,$docroot;
 		$qry = new connectDb; $content=$page_com=array();$dir = 'frontend/';$more_dir='';
 		$request_data = array();$inherited = '';
 		//-------- start preparing request page code ---------------
@@ -74,10 +75,10 @@ class pageController{
 			$inherited_data = $qry->qry_assoc("select dir from layout_page_controller where model='$inherited' and active=1");
 			$more_dir = count($inherited_data)?$inherited_data[0]['dir']:$more_dir; 
 		}else{$adjust_classname = $getClassName;}
-		if ($pagevalid and $checkpage[0]['is_webpage'] and file_exists($_SERVER['DOCUMENT_ROOT']."/app/model/".$dir."page/".$more_dir.$adjust_classname.".php")) {
+		if ($pagevalid and $checkpage[0]['is_webpage'] and file_exists($docroot."/app/model/".$dir."page/".$more_dir.$adjust_classname.".php")) {
 			include_once("app/model/".$dir."page/".$more_dir.$adjust_classname.".php");
 		}
-		if ($pagevalid and $checkpage[0]['is_ajax'] and file_exists($_SERVER['DOCUMENT_ROOT']."/app/model/".$dir."ajax/ajax_controller.php")) { 
+		if ($pagevalid and $checkpage[0]['is_ajax'] and file_exists($docroot."/app/model/".$dir."ajax/ajax_controller.php")) { 
 			include_once("app/model/".$dir."ajax/ajax_controller.php");$request_data['dir'] = $dir;
 		}		
 		if(!class_exists($adjust_classname)){$getClassName=$adjust_classname='pagenotfound';$request_data=array();} 
@@ -121,6 +122,8 @@ class pageController{
 		$obj->logoutRequired = $page_config['required_logout'];
 		$obj->layoutRequired = $page_config['required_layout'];
 		$obj->lang = $lang;
+		$obj->page_style = $page_config['page_style'];
+		$obj->page_script = $page_config['page_script'];
 		$obj->label = (object) $layout_label;
 		$obj->page = isset($content->breadcrumb)?$content->breadcrumb:array($getClassName);
 		$obj->fileview =$adjust_classname;
@@ -136,7 +139,7 @@ class pagenotfound{
 	public function data($msg=''){
 		global $usersession,$layout_label,$lang;		
 		if($msg=='' or is_array($msg)){$msg=$layout_label->label->error404->title;}				
-		return (object) array('title'=>'404','des'=>$msg);
+		return (object) array('title'=>'<span class="text-danger">Oops!</span> Error 404','des'=>$msg);
 	}	
 }
 ?>

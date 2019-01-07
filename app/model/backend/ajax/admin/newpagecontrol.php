@@ -22,13 +22,15 @@ class newpagecontrol{
 											'is_backend'=>isset($_POST['is_backend'])?1:0,
 											'has_shortcut'=>isset($_POST['has_shortcut'])?1:0,
 											'ordering'=>addslashes($_POST['ordering']<>''?$_POST['ordering']:'NULL'),	
+										  	'page_style'=>addslashes($_POST['page_style']),
+										  	'page_script'=>addslashes($_POST['page_script']),
 											'active'=>isset($_POST['active'])?1:0,
 											'components'=>isset($_POST['components'])?$_POST['components']:array(),
 											'user_roles'=>isset($_POST['user_roles'])?$_POST['user_roles']:array()),
 							'email'=>array(),
 							'file'=>array());
 		$isNew = (isset($_POST['recordid']) and $_POST['recordid']<>'')?false:true;
-		$opt_fields = array('recordid','components','user_roles','inherited','model','parent_id','required_login','required_logout','required_layout','is_menu','is_ajax','is_webpage','is_backend','has_shortcut','active','ordering','dir');
+		$opt_fields = array('recordid','components','user_roles','inherited','model','parent_id','required_login','required_logout','required_layout','is_menu','is_ajax','is_webpage','is_backend','has_shortcut','active','ordering','dir','page_style','page_script');
 		if(!$isNew){$opt_fields[]='label_id';}
 		//make page id optional if contorl for ajax, make model_name required
 		if($reg_fields['text']['is_ajax']){$opt_fields[] = 'label_id';$opt_fields=array_diff($opt_fields, array('model'));}
@@ -87,6 +89,8 @@ class newpagecontrol{
 					is_backend=".$reg_fields['text']['is_backend'].",
 					has_shortcut=".$reg_fields['text']['has_shortcut'].",
 					ordering=".$reg_fields['text']['ordering'].",
+					page_style='".$reg_fields['text']['page_style']."',
+					page_script='".$reg_fields['text']['page_script']."',
 					active=".$reg_fields['text']['active'].",";
 			if($isNew){
 				$recordid=$qry->insert("insert into layout_page_controller set $sql created_by=".$usersession->info()->id.",created_date='$datetime'");

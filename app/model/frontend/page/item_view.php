@@ -36,8 +36,9 @@ class item_view{
 									left join layout_text_item_t type_t on type_t.item_id=type.id
 									where i.type_id in (".implode(',',$listing).") and (i.end_date>=CURDATE() or i.end_date is NULL) and i.active=1 and i.approved=1 and i.active_by_user=1");
 		foreach($places_row as $k=>$v){
-			if(!isset($places_origin[$v['code']])){$places_origin[$v['code']]=$layout_label->listing->$v['code'];}
-			$places_origin[$v['code']]->item[] = $v;
+			$vcode=$v['code'];
+			if(!isset($places_origin[$vcode])){$places_origin[$vcode]=$layout_label->listing->$vcode;}
+			$places_origin[$vcode]->item[] = $v;
 		}		
 		//order by distance
 		foreach($places_origin as $k=>$v){

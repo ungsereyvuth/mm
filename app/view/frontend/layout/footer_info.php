@@ -1,50 +1,148 @@
- 
-      
-<section class="section section-sm bg-default">
-        <div class="container">
-          <div class="layout-3-aside">
-            <h3 class="wow fadeIn" style="visibility: visible; animation-name: fadeIn;"><?=$pageData->label->label->latest_news->title?></h3>
-            <p class="text-gray-800 wow fadeIn" data-wow-delay=".025s" style="visibility: visible; animation-delay: 0.025s; animation-name: fadeIn;">Take a look at our collection of useful traveling tips and guides.</p>
-          </div>
-          <div class="layout-3-main"> 
-            <div class="row row-30">
-              <div class="col-sm-6 col-lg-3 wow fadeIn" style="visibility: visible; animation-name: fadeIn;">
-                <!-- Post Creative-->
-                <article class="post-creative"><a class="post-creative-image" href="blog-post.html" style="background-image: url(https://livedemo00.template-help.com/wt_prod-19282/images/home-2-8.jpg);"></a>
-                  <div class="post-creative-main">
-                    <p class="post-creative-title"><a href="blog-post.html">Sunway Recommends: Top 10 Cities to Visit</a></p>
-                    <time class="post-creative-time" datetime="2018">April 24, 2018</time>
-                  </div>
-                </article>
-              </div>
-              <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay=".025s" style="visibility: visible; animation-delay: 0.025s; animation-name: fadeIn;">
-                <!-- Post Creative-->
-                <article class="post-creative"><a class="post-creative-image" href="blog-post.html" style="background-image: url(https://livedemo00.template-help.com/wt_prod-19282/images/home-2-9.jpg);"></a>
-                  <div class="post-creative-main">
-                    <p class="post-creative-title"><a href="blog-post.html">5 Places to Visit in Montana for Superb Hiking</a></p>
-                    <time class="post-creative-time" datetime="2018">May 12, 2018</time>
-                  </div>
-                </article>
-              </div>
-              <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay=".05s" style="visibility: visible; animation-delay: 0.05s; animation-name: fadeIn;">
-                <!-- Post Creative-->
-                <article class="post-creative"><a class="post-creative-image" href="blog-post.html" style="background-image: url(https://livedemo00.template-help.com/wt_prod-19282/images/home-2-10.jpg);"></a>
-                  <div class="post-creative-main">
-                    <p class="post-creative-title"><a href="blog-post.html">5 Amazing Cities in Cuba That You May Not Know About</a></p>
-                    <time class="post-creative-time" datetime="2018">May 14, 2018</time>
-                  </div>
-                </article>
-              </div>
-              <div class="col-sm-6 col-lg-3 wow fadeIn" data-wow-delay=".075s" style="visibility: visible; animation-delay: 0.075s; animation-name: fadeIn;">
-                <!-- Post Creative-->
-                <article class="post-creative"><a class="post-creative-image" href="blog-post.html" style="background-image: url(https://livedemo00.template-help.com/wt_prod-19282/images/home-2-11.jpg);"></a>
-                  <div class="post-creative-main">
-                    <p class="post-creative-title"><a href="blog-post.html">Trip Planning Tips for Frequent Travelers</a></p>
-                    <time class="post-creative-time" datetime="2018">June 19, 2018</time>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>      
+<?php
+$footer_info_links=$social_network='';
+foreach($pageData->label->footer_info_links as $key=>$value){	
+	$footer_info_links.='<li><a href="/'.$pageData->lang->selected.$value->url.'">'.$value->title.'</a></li>';
+}
+foreach($pageData->label->social_network as $key=>$value){	
+	$social_network.='<a target="new" class="link-1 icon mdi '.$value->icon.'" href="'.$value->url.'"></a>';
+}
+
+?>
+
+<!-- Footer -->
+
+<div class="footer">
+
+  <div class="container">
+
+	<div class="row no-gutters">
+
+	  <div class="col-sm-6 col-lg-3 text-center px-3">
+
+		<h5 class="bold">SUBSCRIBE</h5>
+
+		<p>and get <strong class="text-primary">10% discount</strong></p>
+
+		<form>
+
+		  <div class="form-group">
+
+			<input type="email" class="form-control rounded-pill text-center" placeholder="Enter your email">
+
+		  </div>
+
+		  <button type="button" class="btn btn-primary btn-block rounded-pill">SUBSCRIBE</button>
+
+		</form>
+
+	  </div>
+
+	  <div class="col-6 col-lg-3">
+
+		<h6 class="bold">Customer Service</h6>
+
+		<div class="list-group list-group-flush list-group-no-border list-group-sm">
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Help Center</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">How to buy</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Delivery</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">How to return</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Payment Method</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Shipping Method</a>
+
+		</div>
+
+	  </div>
+
+	  <div class="col-6 col-lg-3">
+
+		<h6 class="bold">Mimity</h6>
+
+		<div class="list-group list-group-flush list-group-no-border list-group-sm">
+
+		  <a href="about.html" class="list-group-item list-group-item-action">About Us</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Terms and Conditions</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Privacy Policy</a>
+
+		  <a href="faq.html" class="list-group-item list-group-item-action">FAQs</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Our Story</a>
+
+		  <a href="javascript:void(0)" class="list-group-item list-group-item-action">Services</a>
+
+		</div>
+
+	  </div>
+
+	  <div class="col-sm-6 col-lg-3">
+
+		<h6 class="bold">Download The App</h6>
+
+		<a href="javascript:void(0)" class="download-app">
+
+		  <div class="media">
+
+			<img src="/assets/frontend/template/img/app/google-play.svg" alt="Google Play Logo" height="30">
+
+			<div class="media-body">
+
+			  <small>Get it on</small>
+
+			  <h5>Google Play</h5>
+
+			</div>
+
+		  </div>
+
+		</a>
+
+		<a href="javascript:void(0)" class="download-app">
+
+		  <div class="media">
+
+			<img src="/assets/frontend/template/img/app/apple.svg" alt="Apple Logo" height="30">
+
+			<div class="media-body">
+
+			  <small>Download on the</small>
+
+			  <h5>App Store</h5>
+
+			</div>
+
+		  </div>
+
+		</a>
+
+		<a href="javascript:void(0)" class="download-app">
+
+		  <div class="media">
+
+			<img src="/assets/frontend/template/img/app/windows.svg" alt="Windows Logo" height="30">
+
+			<div class="media-body">
+
+			  <small>Get it from</small>
+
+			  <h5>Microsoft Store</h5>
+
+			</div>
+
+		  </div>
+
+		</a>
+
+	  </div>
+
+	</div>
+
+  </div>
+
+</div>

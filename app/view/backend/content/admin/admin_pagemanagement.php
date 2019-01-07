@@ -217,7 +217,7 @@ $formCmd='newpagecontrol';
                                     </section>  
                                 </div>
                                 
-                                <div class="row">
+								<div class="row">
                                     <section class="col col-md-12">
                                     	<label class="label">User Priviledge</label>
                                         <div class="inline-group">
@@ -229,6 +229,23 @@ $formCmd='newpagecontrol';
                                         </div>
                                     </section>
                                 </div> 
+								
+								<div class="row">
+                                    <section class="col col-md-12">                                    	
+										<label class="label">Page Style (css file / css script) - Optional</label>
+										<label class="textarea textarea-resizable"> 										
+											<textarea rows="3" name="page_style" class="custom-scroll" placeholder="<link rel='stylesheet' href='FILE_URL'>&#10;<style>STYLE_SCRIPT</style>"></textarea> 
+										</label>
+                                    </section>
+                                </div> 
+								<div class="row">
+                                    <section class="col col-md-12">                                    	
+										<label class="label">Page Script (js file / js script) - Optional</label>
+										<label class="textarea textarea-resizable"> 										
+											<textarea rows="3" name="page_script" class="custom-scroll" placeholder="<script src='FILE_URL'></script>&#10;<script>$(document).ready(function() { JS_SCRIPT });</script>"></textarea> 
+										</label>
+                                    </section>
+                                </div>
                             </fieldset>
                             <footer>
                                 <input class="removable" type="hidden" name="recordid" value="" />

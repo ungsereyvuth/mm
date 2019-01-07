@@ -4,6 +4,7 @@
 <head>
 <?php include('app/view/'.$dir.'layout/meta.php');?>
 <?php include('app/view/'.$dir.'layout/stylesheet.php');?>
+<?=$pageData->page_style?>
 </head>
 <?php if($sn){?>
 <div id="fb-root"></div>
@@ -19,7 +20,7 @@
 <?php }?>
 
 <body>
-<div class="page">
+	
 <?php if(isset($pageData->data->component->topinfo)) include('app/view/'.$dir.'layout/topinfo.php');?>
 <?php if(isset($pageData->data->component->frontend_menu)) include('app/view/'.$dir.'layout/menu.php');?>
 
@@ -42,9 +43,10 @@
 
 <?php if(isset($pageData->data->component->footer_info)) include('app/view/'.$dir.'layout/footer_info.php');?>
 <?php if(isset($pageData->data->component->footer)) include('app/view/'.$dir.'layout/footer.php');?>
-</div>
-<div class="snackbars" id="form-output-global"></div>
+
+	
 <?php include('app/view/'.$dir.'layout/script.php');?>
+<?=$pageData->page_script?>
 <?=isset($late_script_file)?$late_script_file:''?>
 <script>
 	jQuery(document).ready(function() {

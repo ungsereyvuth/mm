@@ -11,6 +11,8 @@ class loadPageControlData{
 			if(count($fromdata)){
 				$fromdata = $fromdata[0];
 				$fromdata['recordid'] = encodeString($fromdata['id'],$encryptKey);
+				$fromdata['page_style'] = htmlspecialchars($fromdata['page_style']);
+				$fromdata['page_script'] = htmlspecialchars($fromdata['page_script']);
 				$components = explode(',',$fromdata['components']);
 				foreach($components as $key=>$value){$fromdata["components[$value]"]=1;}
 				//check for allowed user roles
