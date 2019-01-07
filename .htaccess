@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+Options -Indexes
+ErrorDocument 404 page_not_founds
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteCond %{QUERY_STRING} ^(.*)$
+
+RewriteRule ^(.*)$ /index.php?url=$1&%1
+RewriteRule ^(.*)/$ /index.php?url=$1&%1
+</IfModule>
